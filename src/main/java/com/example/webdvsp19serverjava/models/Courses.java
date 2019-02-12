@@ -1,8 +1,11 @@
 package com.example.webdvsp19serverjava.models;
 
+import java.util.ArrayList;
+
 public class Courses {
 	private int id;
 	private String courseName;
+	private ArrayList<Modules> modules = new ArrayList<Modules>();
 	
 	public Courses(int id, String courseName) {
 		super();
@@ -20,6 +23,12 @@ public class Courses {
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+	public ArrayList<Modules> getModules() {
+		return modules;
+	}
+	public void setModules(ArrayList<Modules> modules) {
+		this.modules = modules;
 	}
 	
 }
