@@ -8,12 +8,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.webdvsp19serverjava.models.Chapters;
 import com.example.webdvsp19serverjava.models.Courses;
 import com.example.webdvsp19serverjava.models.Faculty;
+import com.example.webdvsp19serverjava.models.HeadingWidget;
+import com.example.webdvsp19serverjava.models.ImageWidget;
+import com.example.webdvsp19serverjava.models.LinkWidget;
+import com.example.webdvsp19serverjava.models.ListWidget;
 import com.example.webdvsp19serverjava.models.Modules;
-import com.example.webdvsp19serverjava.models.Person;
+import com.example.webdvsp19serverjava.models.ParagraphWidget;
 import com.example.webdvsp19serverjava.models.Sections;
 import com.example.webdvsp19serverjava.models.Students;
+import com.example.webdvsp19serverjava.models.Topics;
 
 import java.util.ArrayList;
 
@@ -33,7 +39,24 @@ public class UserService {
 	
 	Modules jquery = new Modules(1, "Jquery");
 	Modules react = new Modules(2, "React");
+	Modules sql = new Modules(1, "SQL");
+	Modules jpa = new Modules(2, "JPA");
 	
+	Chapters chapter1 = new Chapters(1, "Lesson 1");
+	Chapters chapter2 = new Chapters(2, "Lesson 2");
+	Chapters chapter3 = new Chapters(1, "Lesson 1");
+	Chapters chapter4 = new Chapters(2, "Lesson 2");
+	
+	Topics topic1 = new Topics(1, "Topic 1");
+	Topics topic2 = new Topics(2, "Topic 2");
+	Topics topic3 = new Topics(1, "Topic 1");
+	Topics topic4 = new Topics(2, "Topic 2");
+	
+	HeadingWidget heading1 = new HeadingWidget(1, "Heading Text");
+	ParagraphWidget paragraph1 = new ParagraphWidget(1, "Paragraph Text");
+	ImageWidget image1 = new ImageWidget(1, "Image URL");
+	ListWidget list1 = new ListWidget(1, "List Text");
+	LinkWidget link1 = new LinkWidget(1, "Link URL");
 //	Person alice = new Person(100, "bird", "bird", "Alice", "Kathie", "Faculty");
 //	Person alex = new Person(101, "sign", "sign", "Alex", "Mercer", "Student");
 //	Courses cs5610 = new Courses(100, "cs5610");
