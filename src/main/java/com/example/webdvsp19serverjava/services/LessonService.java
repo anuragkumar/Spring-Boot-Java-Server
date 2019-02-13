@@ -19,7 +19,7 @@ import com.example.webdvsp19serverjava.models.Modules;
 
 @RestController
 public class LessonService {
-	@PostMapping("/api/courses/{cid}/{mid}/lessons")
+	@PostMapping("/api/courses/{cid}/modules/{mid}/lessons")
 	public ArrayList<Chapters> createLesson(@PathVariable("cid") Integer cid,
 											@PathVariable("mid") Integer mid,
 											@RequestBody Chapters chapter,
@@ -30,7 +30,7 @@ public class LessonService {
 		return module.createLesson(chapter);
 	}
 	
-	@GetMapping("/api/course/{cid}/{mid}/lessons")
+	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons")
 	public ArrayList<Chapters> findAllLessons(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											HttpSession session){
@@ -40,7 +40,7 @@ public class LessonService {
 		return module.findAllLessons();
 	}
 	
-	@GetMapping("/api/modules/{cid}/{mid}/lessons/{lid}")
+	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}")
 	public Chapters findLessonById(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									@PathVariable("lid") Integer lid,
@@ -51,7 +51,7 @@ public class LessonService {
 		return module.findLessonById(lid);
 	}
 	
-	@PutMapping("/api/modules/{cid}/{mid}/lessons/{lid}")
+	@PutMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}")
 	public ArrayList<Chapters> updateLesson(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									@PathVariable("lid") Integer lid, 
@@ -63,7 +63,7 @@ public class LessonService {
 		return module.updateLesson(lid, chapter);
 	}
 	
-	@DeleteMapping("/api/courses/{cid}/{mid}/lessons/{lid}")
+	@DeleteMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}")
 	public ArrayList<Chapters> deleteCourse(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,

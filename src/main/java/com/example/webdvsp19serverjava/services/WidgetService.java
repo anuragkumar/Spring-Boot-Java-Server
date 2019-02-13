@@ -20,7 +20,7 @@ import com.example.webdvsp19serverjava.models.Widgets;
 
 @RestController
 public class WidgetService {
-	@PostMapping("/api/courses/{cid}/{mid}/lessons/{lid}/topics/{tid}/widgets")
+	@PostMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}/widgets")
 	public ArrayList<Widgets> createTopic(@PathVariable("cid") Integer cid,
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,
@@ -35,7 +35,7 @@ public class WidgetService {
 		return topic.createWidget(widget);
 	}
 	
-	@GetMapping("/api/course/{cid}/{mid}/lessons/{lid}/topics/{tid}/widgets")
+	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}/widgets")
 	public ArrayList<Widgets> findAllWidgets(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,
@@ -49,7 +49,7 @@ public class WidgetService {
 		return topic.findAllWidgets();
 	}
 	
-	@DeleteMapping("/api/courses/{cid}/{mid}/lessons/{lid}/topics/{tid}/widgets/{wid}")
+	@DeleteMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}/widgets/{wid}")
 	public ArrayList<Widgets> deleteTopic(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,

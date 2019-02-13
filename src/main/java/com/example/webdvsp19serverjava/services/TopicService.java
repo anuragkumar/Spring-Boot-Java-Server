@@ -20,7 +20,7 @@ import com.example.webdvsp19serverjava.models.Topics;
 
 @RestController
 public class TopicService {
-	@PostMapping("/api/courses/{cid}/{mid}/lessons/{lid}/topics")
+	@PostMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics")
 	public ArrayList<Topics> createTopic(@PathVariable("cid") Integer cid,
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,
@@ -33,7 +33,7 @@ public class TopicService {
 		return chapter.createTopic(topic);
 	}
 	
-	@GetMapping("/api/course/{cid}/{mid}/lessons/{lid}/topics")
+	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics")
 	public ArrayList<Topics> findAllTopics(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,
@@ -45,7 +45,7 @@ public class TopicService {
 		return chapter.findAllTopics();
 	}
 	
-	@GetMapping("/api/modules/{cid}/{mid}/lessons/{lid}/topics/{tid}")
+	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
 	public Topics findLessonById(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									@PathVariable("lid") Integer lid,
@@ -58,7 +58,7 @@ public class TopicService {
 		return chapter.findTopicById(tid);
 	}
 	
-	@PutMapping("/api/modules/{cid}/{mid}/lessons/{lid}/topics/{tid}")
+	@PutMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
 	public ArrayList<Topics> updateTopic(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									@PathVariable("lid") Integer lid, 
@@ -72,7 +72,7 @@ public class TopicService {
 		return chapter.updateTopic(tid, topic);
 	}
 	
-	@DeleteMapping("/api/courses/{cid}/{mid}/lessons/{lid}/topics/{tid}")
+	@DeleteMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
 	public ArrayList<Topics> deleteTopic(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											@PathVariable("lid") Integer lid,

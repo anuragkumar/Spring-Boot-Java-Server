@@ -28,7 +28,7 @@ public class ModuleService {
 		return course.createModule(module);
 	}
 	
-	@GetMapping("/api/course/{cid}/modules")
+	@GetMapping("/api/courses/{cid}/modules")
 	public ArrayList<Modules> findAllModules(@PathVariable("cid") Integer id, 
 											HttpSession session){
 		Faculty user = (Faculty)session.getAttribute("currentUser");
@@ -36,7 +36,7 @@ public class ModuleService {
 		return course.findAllModules();
 	}
 	
-	@GetMapping("/api/modules/{cid}/{mid}")
+	@GetMapping("/api/courses/{cid}/modules/{mid}")
 	public Modules findModuleById(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									HttpSession session){
@@ -45,7 +45,7 @@ public class ModuleService {
 		return course.findModuleById(mid);
 	}
 	
-	@PutMapping("/api/modules/{cid}/{mid}")
+	@PutMapping("/api/courses/{cid}/modules/{mid}")
 	public ArrayList<Modules> updateModule(@PathVariable("cid") Integer cid, 
 									@PathVariable("mid") Integer mid, 
 									@RequestBody Modules module,
@@ -55,7 +55,7 @@ public class ModuleService {
 		return course.updateModule(mid, module);
 	}
 	
-	@DeleteMapping("/api/courses/{cid}/{mid}")
+	@DeleteMapping("/api/courses/{cid}/modules/{mid}")
 	public ArrayList<Modules> deleteCourse(@PathVariable("cid") Integer cid, 
 											@PathVariable("mid") Integer mid,
 											HttpSession session){

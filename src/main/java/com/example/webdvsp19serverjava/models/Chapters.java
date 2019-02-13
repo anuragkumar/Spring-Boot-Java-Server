@@ -46,7 +46,7 @@ public class Chapters {
 	}
 	public ArrayList<Topics> updateTopic(Integer tid, Topics topic) {
 		for(Topics top: this.topics) {
-			if(top.getId() == id) {
+			if(top.getId() == tid) {
 				top.setTopicName(topic.getTopicName());
 				return this.topics;
 			}
@@ -55,7 +55,7 @@ public class Chapters {
 	}
 	public ArrayList<Topics> deleteTopic(Integer tid) {
 		for(Topics topic: this.topics) {
-			if(topic.getId() == id) {
+			if(topic.getId() == tid) {
 				this.topics.remove(topic);
 				return this.topics;
 			}

@@ -38,7 +38,7 @@ public class Modules {
 	}
 	public Chapters findLessonById(Integer lid) {
 		for(Chapters chapter: this.chapters) {
-			if(chapter.getId() == id) {
+			if(chapter.getId() == lid) {
 				return chapter;
 			}
 		}
@@ -46,7 +46,7 @@ public class Modules {
 	}
 	public ArrayList<Chapters> updateLesson(Integer lid, Chapters chapter) {
 		for(Chapters chap: this.chapters) {
-			if(chap.getId() == id) {
+			if(chap.getId() == lid) {
 				chap.setChapterName(chapter.getChapterName());
 				return this.chapters;
 			}
@@ -55,7 +55,7 @@ public class Modules {
 	}
 	public ArrayList<Chapters> deleteLesson(Integer lid) {
 		for(Chapters chapter: this.chapters) {
-			if(chapter.getId() == id) {
+			if(chapter.getId() == lid) {
 				this.chapters.remove(chapter);
 				return this.chapters;
 			}
