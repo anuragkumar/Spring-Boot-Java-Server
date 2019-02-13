@@ -1,10 +1,8 @@
 package com.example.webdvsp19serverjava.services;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +21,8 @@ import com.example.webdvsp19serverjava.models.Topics;
 import com.example.webdvsp19serverjava.models.Widgets;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class UserService {
@@ -72,6 +72,7 @@ public class UserService {
 	ListWidget list1 = new ListWidget(1, "List Text");
 	LinkWidget link1 = new LinkWidget(1, "Link URL");
 	
+	ArrayList<Faculty> users = new ArrayList<Faculty>();
 	ArrayList<Courses> courses1 = new ArrayList<Courses>();
 	ArrayList<Courses> courses2 = new ArrayList<Courses>();
 	ArrayList<Modules> cs5610Modules = new ArrayList<Modules>();
@@ -139,11 +140,69 @@ public class UserService {
 		cs5200.setModules(cs5200Modules);
 		cs5600.setModules(cs5600Modules);
 		courses1.add(cs5610);
-		courses1.add(cs5610);
+		courses1.add(cs5200);
 		courses2.add(cs5600);
 		alex.setCourses(courses1);
 		alice.setCourses(courses2);
+		users.add(alex);
+		users.add(alice);
 	}
+	
+	@GetMapping("/api/users")
+	public ArrayList<Faculty> findAllUser() {
+		return users;
+	}
+	
+	@GetMapping("/api/users/{userID}")
+	public Faculty findUserById(@PathVariable("userID") Integer id) {
+		for(Faculty user: users) {
+			if(user.getId().equals(id)) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	@PostMapping("/api/register")
+	public Faculty createUser(@RequestBody Faculty newUser, HttpSession session){
+		int flag = 0;
+		for(Faculty user: users) {
+			if(user.getUsername().equals(newUser.getUsername())) {
+				flag = 1;
+			}
+		}
+		if(flag == 0) {
+			users.add(newUser);
+			session.setAttribute("currentUser", newUser);
+			return newUser;
+		}
+		return null;
+	}
+	
+	@PostMapping("/api/login")
+	public Faculty loginUser(@RequestBody Faculty loginUser, HttpSession session){
+		for(Faculty user: users) {
+			System.out.println(user.findAllCourses().size());
+			if(user.getUsername().equals(loginUser.getUsername()) && 
+					user.getPassword().equals(loginUser.getPassword())) {
+				session.setAttribute("currentUser", user);
+				
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	@PostMapping("/api/logout")
+	public void logout(HttpSession session) {
+		session.invalidate();
+	}
+	
+	@PostMapping("/api/profile")
+	public Faculty profile(HttpSession session){
+		return (Faculty)session.getAttribute("currentUser");
+	}
+	
 //	Person alice = new Person(100, "bird", "bird", "Alice", "Kathie", "Faculty");
 //	Person alex = new Person(101, "sign", "sign", "Alex", "Mercer", "Student");
 //	Courses cs5610 = new Courses(100, "cs5610");
@@ -187,8 +246,4 @@ public class UserService {
 //		return persons;
 //	}
 //	
-//	@GetMapping("/api/users")
-//	public ArrayList<Person> findAllUser() {
-//		return persons;
-//	}
 }

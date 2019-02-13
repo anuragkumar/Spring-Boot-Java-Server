@@ -31,4 +31,12 @@ public class Courses {
 		this.modules = modules;
 	}
 	
+	public ArrayList<Modules> createModule(Modules module){
+		this.modules.add(module);
+		return this.modules;
+	}
+	
+	public ArrayList<Modules> findAllModules(){
+		return this.modules;
+	}
 }
