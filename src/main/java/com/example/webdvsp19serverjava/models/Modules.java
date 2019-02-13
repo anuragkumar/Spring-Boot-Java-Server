@@ -29,4 +29,37 @@ public class Modules {
 	public void setChapters(ArrayList<Chapters> chapters) {
 		this.chapters = chapters;
 	}
+	public ArrayList<Chapters> createLesson(Chapters chapter) {
+		this.chapters.add(chapter);
+		return this.chapters;
+	}
+	public ArrayList<Chapters> findAllLessons() {
+		return this.chapters;
+	}
+	public Chapters findLessonById(Integer lid) {
+		for(Chapters chapter: this.chapters) {
+			if(chapter.getId() == id) {
+				return chapter;
+			}
+		}
+		return null;
+	}
+	public ArrayList<Chapters> updateLesson(Integer lid, Chapters chapter) {
+		for(Chapters chap: this.chapters) {
+			if(chap.getId() == id) {
+				chap.setChapterName(chapter.getChapterName());
+				return this.chapters;
+			}
+		}
+		return null;
+	}
+	public ArrayList<Chapters> deleteLesson(Integer lid) {
+		for(Chapters chapter: this.chapters) {
+			if(chapter.getId() == id) {
+				this.chapters.remove(chapter);
+				return this.chapters;
+			}
+		}
+		return null;
+	}
 }
