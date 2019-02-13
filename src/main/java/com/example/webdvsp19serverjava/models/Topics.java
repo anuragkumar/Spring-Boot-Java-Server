@@ -29,5 +29,21 @@ public class Topics {
 	public void setWidgets(ArrayList<Widgets> widgets) {
 		this.widgets = widgets;
 	}
+	public ArrayList<Widgets> createWidget(Widgets widget) {
+		this.widgets.add(widget);
+		return this.widgets;
+	}
+	public ArrayList<Widgets> findAllWidgets() {
+		return this.widgets;
+	}
+	public ArrayList<Widgets> deleteWidget(Integer wid) {
+		for(Widgets widget: this.widgets) {
+			if(widget.getId() == wid) {
+				this.widgets.remove(widget);
+				return this.widgets;
+			}
+		}
+		return null;
+	}
 	
 }
