@@ -39,4 +39,33 @@ public class Courses {
 	public ArrayList<Modules> findAllModules(){
 		return this.modules;
 	}
+	
+	public Modules findModuleById(Integer id){
+		for(Modules module: this.modules) {
+			if(module.getId() == id) {
+				return module;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Modules> updateModule(Integer id, Modules module){
+		for(Modules mod: this.modules) {
+			if(mod.getId() == id) {
+				mod.setModuleName(module.getModuleName());
+				return this.modules;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Modules> deleteModule(Integer id){
+		for(Modules mod: this.modules) {
+			if(mod.getId() == id) {
+				this.modules.remove(mod);
+				return this.modules;
+			}
+		}
+		return null;
+	}
 }
