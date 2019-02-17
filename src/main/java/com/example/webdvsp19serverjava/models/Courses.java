@@ -1,6 +1,7 @@
 package com.example.webdvsp19serverjava.models;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Courses {
 	private int id;
@@ -32,6 +33,8 @@ public class Courses {
 	}
 	
 	public ArrayList<Modules> createModule(Modules module){
+		Random ran = new Random();
+		module.setId(ran.nextInt(100));
 		this.modules.add(module);
 		return this.modules;
 	}

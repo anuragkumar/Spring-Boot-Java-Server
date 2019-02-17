@@ -1,9 +1,11 @@
 package com.example.webdvsp19serverjava.services;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +18,15 @@ import com.example.webdvsp19serverjava.models.Courses;
 import com.example.webdvsp19serverjava.models.Faculty;
 
 @RestController
+@CrossOrigin(origins = "*", allowCredentials ="true")
 public class CourseService {
+	Random ran = new Random();
 	
 	@PostMapping("/api/courses")
-	public Courses createCourse(@RequestBody Courses course, HttpSession session) {
+	public ArrayList<Courses> createCourse(@RequestBody Courses course, HttpSession session) {
 		Faculty user = (Faculty)session.getAttribute("currentUser");
-		user.addCourse(course);
-		return course;
+		course.setId(ran.nextInt(100));
+		return user.addCourse(course);
 	}
 	
 	@GetMapping("/api/courses")
@@ -32,7 +36,7 @@ public class CourseService {
 	}
 	
 	@GetMapping("/api/courses/{courseID}")
-	public Courses findUserById(@PathVariable("courseID") Integer id, HttpSession session) {
+	public Courses findCourseById(@PathVariable("courseID") Integer id, HttpSession session) {
 		Faculty user = (Faculty)session.getAttribute("currentUser");
 		return user.findCourseById(id);
 	}

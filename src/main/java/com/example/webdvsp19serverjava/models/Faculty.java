@@ -19,8 +19,9 @@ public class Faculty extends Person {
 		this.courses = courses;
 	}
 	
-	public void addCourse(Courses course) {
+	public ArrayList<Courses> addCourse(Courses course) {
 		this.courses.add(course);
+		return this.courses;
 	}
 	
 	public ArrayList<Courses> findAllCourses(){

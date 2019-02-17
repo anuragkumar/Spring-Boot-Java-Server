@@ -1,4 +1,5 @@
 package com.example.webdvsp19serverjava.services;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +22,15 @@ import com.example.webdvsp19serverjava.models.Topics;
 import com.example.webdvsp19serverjava.models.Widgets;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
 @RestController
+@CrossOrigin(origins = "*", allowCredentials ="true")
 public class UserService {
+	Random ran = new Random();
+	
 	Faculty alex = new Faculty(100, "bird", "bird", "Alice", "Kathie");
 	Faculty alice = new Faculty(101, "sign", "sign", "Alex", "Mercer");
 	
@@ -172,6 +177,7 @@ public class UserService {
 			}
 		}
 		if(flag == 0) {
+			newUser.setId(ran.nextInt(100));
 			users.add(newUser);
 			session.setAttribute("currentUser", newUser);
 			return newUser;
@@ -203,47 +209,18 @@ public class UserService {
 		return (Faculty)session.getAttribute("currentUser");
 	}
 	
-//	Person alice = new Person(100, "bird", "bird", "Alice", "Kathie", "Faculty");
-//	Person alex = new Person(101, "sign", "sign", "Alex", "Mercer", "Student");
-//	Courses cs5610 = new Courses(100, "cs5610");
-//	Courses cs5200 = new Courses(101, "cs5200");
-//	ArrayList<Person> persons = new ArrayList<Person>();
-//	ArrayList<Courses> courses = new ArrayList<Courses>();
-//	{
-//		courses.add(cs5610);
-//		courses.add(cs5200);
-//		alice.setCourses(courses);
-//		persons.add(alice);
-//		persons.add(alex);
-//	}
-//	
-//	@PostMapping("/api/users")
-//	public ArrayList<Person> createUser(@RequestBody Person newUser){
-//		persons.add(newUser);
-//		return persons;
-//	}
-//	
-//	@PutMapping("/api/users/{userID}")
-//	public ArrayList<Person> updateUser(@PathVariable("userID") Integer id, 
-//										@RequestBody Person newUser){
-//		for(Person user : persons) {
-//			if(user.getId().equals(id)) {
-//				user.setFirstName(newUser.getFirstName());
-//				return persons;
-//			}
-//		}
-//		return persons;
-//	}
-//	
-//	@DeleteMapping("/api/users/{userID}")
-//	public ArrayList<Person> deleteUser(@PathVariable("userID") Integer id){
-//		for(Person user : persons) {
-//			if(user.getId().equals(id)) {
-//				persons.remove(user);
-//				return persons;
-//			}
-//		}
-//		return persons;
-//	}
-//	
+	@PostMapping("/api/loggedInUser")
+	public Faculty getLoggedInUser(HttpSession session){
+		return (Faculty)session.getAttribute("currentUser");
+	}
+	
+	@PostMapping("/api/updateUser")
+	public Faculty updateUser(@RequestBody Faculty updateUser, 
+								HttpSession session){
+		Faculty currentUser = (Faculty)session.getAttribute("currentUser");
+		currentUser.setFirstName(updateUser.getFirstName());
+		currentUser.setLastName(updateUser.getLastName());
+		return currentUser;
+	}
+	
 }

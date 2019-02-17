@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.example.webdvsp19serverjava.models.Faculty;
 import com.example.webdvsp19serverjava.models.Modules;
 
 @RestController
+@CrossOrigin(origins = "*", allowCredentials ="true")
 public class LessonService {
 	@PostMapping("/api/courses/{cid}/modules/{mid}/lessons")
 	public ArrayList<Chapters> createLesson(@PathVariable("cid") Integer cid,
