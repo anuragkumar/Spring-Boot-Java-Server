@@ -64,12 +64,14 @@ public class UserService {
 	Chapters chapter11 = new Chapters(1, "Lesson 1 Unit Testing");
 	Chapters chapter12 = new Chapters(2, "Lesson 2 Regression Testing");
 	
-	Topics topic1 = new Topics(1, "Topic 1");
-	Topics topic2 = new Topics(2, "Topic 2");
-	Topics topic3 = new Topics(1, "Topic 1");
-	Topics topic4 = new Topics(2, "Topic 2");
-	Topics topic5 = new Topics(1, "Topic 1");
-	Topics topic6 = new Topics(2, "Topic 2");
+	Topics topic1 = new Topics(1, "Topic 1 DOM");
+	Topics topic2 = new Topics(2, "Topic 2 Events");
+	Topics topic3 = new Topics(1, "Topic 1 Click");
+	Topics topic4 = new Topics(2, "Topic 2 Callbacks");
+	Topics topic5 = new Topics(1, "Topic 1 State");
+	Topics topic6 = new Topics(2, "Topic 2 Components");
+	Topics topic7 = new Topics(1, "Topic 2 Stateful");
+	Topics topic8 = new Topics(2, "Topic 2 Stateless");
 	
 	HeadingWidget heading1 = new HeadingWidget(1, "Heading Text");
 	ParagraphWidget paragraph1 = new ParagraphWidget(1, "Paragraph Text");
@@ -89,7 +91,10 @@ public class UserService {
 	ArrayList<Chapters> jpaChapters = new ArrayList<Chapters>();
 	ArrayList<Chapters> agileChapters = new ArrayList<Chapters>();
 	ArrayList<Chapters> testingChapters = new ArrayList<Chapters>();
-	ArrayList<Topics> jqueryLessTopics = new ArrayList<Topics>();
+	ArrayList<Topics> jqueryLessTopics1 = new ArrayList<Topics>();
+	ArrayList<Topics> jqueryLessTopics2 = new ArrayList<Topics>();
+	ArrayList<Topics> reactLessTopics1 = new ArrayList<Topics>();
+	ArrayList<Topics> reactLessTopics2 = new ArrayList<Topics>();
 	ArrayList<Topics> sqlLessTopics = new ArrayList<Topics>();
 	ArrayList<Widgets> jquerytopic1 = new ArrayList<Widgets>();
 	ArrayList<Widgets> jquerytopic2 = new ArrayList<Widgets>();
@@ -111,12 +116,18 @@ public class UserService {
 		jquerytopic1.add(heading1);
 		jquerytopic1.add(paragraph1);
 		topic1.setWidgets(jquerytopic1);
-		sqlLessTopics.add(topic3);
-		sqlLessTopics.add(topic4);
-		chapter3.setTopics(sqlLessTopics);
-		jqueryLessTopics.add(topic1);
-		jqueryLessTopics.add(topic2);
-		chapter1.setTopics(jqueryLessTopics);
+		reactLessTopics2.add(topic7);
+		reactLessTopics2.add(topic8);
+		chapter4.setTopics(reactLessTopics2);
+		reactLessTopics1.add(topic5);
+		reactLessTopics1.add(topic6);
+		chapter3.setTopics(reactLessTopics1);
+		jqueryLessTopics2.add(topic3);
+		jqueryLessTopics2.add(topic4);
+		chapter2.setTopics(jqueryLessTopics2);
+		jqueryLessTopics1.add(topic1);
+		jqueryLessTopics1.add(topic2);
+		chapter1.setTopics(jqueryLessTopics1);
 		testingChapters.add(chapter11);
 		testingChapters.add(chapter12);
 		testing.setChapters(testingChapters);
