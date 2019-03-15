@@ -3,10 +3,35 @@ package com.example.webdvsp19serverjava.models;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Courses {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String courseName;
+	@OneToMany(mappedBy = "course")
 	private ArrayList<Modules> modules = new ArrayList<Modules>();
+	
+	@ManyToOne
+    @JsonIgnore
+    private Faculty author;
+
+    public Faculty getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Faculty author) {
+        this.author = author;
+    }
 	
 	public Courses(int id, String courseName) {
 		super();
