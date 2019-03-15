@@ -1,11 +1,34 @@
 package com.example.webdvsp19serverjava.models;
 
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
+@Entity
 public class Topics {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String topicName;
+	
+	@OneToMany(mappedBy = "topic")
 	private ArrayList<Widgets> widgets = new ArrayList<Widgets>();
+	
+	@ManyToOne
+    @JsonIgnore
+    private Chapters chapter;
+	
+	public Chapters getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapters chapter) {
+        this.chapter = chapter;
+    }
+
+	
 	public Topics(Integer id, String topicName) {
 		super();
 		this.id = id;
