@@ -24,9 +24,10 @@ public class ListWidget extends Widgets {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ListWidget(Integer id, String widgetName) {
+	public ListWidget(Integer id, String widgetName, String text, Integer type) {
 		super(id, widgetName);
-		// TODO Auto-generated constructor stub
+		this.listText = text;
+		this.listType = type;
 	}
 	
 }
