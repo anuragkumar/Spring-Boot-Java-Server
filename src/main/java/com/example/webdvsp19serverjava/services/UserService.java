@@ -204,6 +204,7 @@ public class UserService {
 	
 	@PostMapping("/api/login")
 	public Faculty loginUser(@RequestBody Faculty loginUser, HttpSession session){
+		users = (ArrayList<Faculty>) userRepository.findAll();
 		for(Faculty user: users) {
 			System.out.println(user.findAllCourses().size());
 			if(user.getUsername().equals(loginUser.getUsername()) && 
