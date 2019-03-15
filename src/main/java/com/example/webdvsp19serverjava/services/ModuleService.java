@@ -2,8 +2,10 @@ package com.example.webdvsp19serverjava.services;
 
 import java.util.ArrayList;
 
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,55 +16,69 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webdvsp19serverjava.models.Courses;
-import com.example.webdvsp19serverjava.models.Faculty;
 import com.example.webdvsp19serverjava.models.Modules;
+import com.example.webdvsp19serverjava.repositories.CourseRepository;
+import com.example.webdvsp19serverjava.repositories.ModuleRepository;
 
 @RestController
-@CrossOrigin(origins = "*", allowCredentials ="true")
+@CrossOrigin(origins = "*", allowCredentials ="true", allowedHeaders = "*")
 public class ModuleService {
-	
-	@PostMapping("/api/courses/{cid}/modules")
-	public ArrayList<Modules> createModule(@PathVariable("cid") Integer id,
-											@RequestBody Modules module,
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(id);
-		return course.createModule(module);
-	}
-	
-	@GetMapping("/api/courses/{cid}/modules")
-	public ArrayList<Modules> findAllModules(@PathVariable("cid") Integer id, 
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(id);
-		return course.findAllModules();
-	}
-	
-	@GetMapping("/api/courses/{cid}/modules/{mid}")
-	public Modules findModuleById(@PathVariable("cid") Integer cid, 
-									@PathVariable("mid") Integer mid, 
-									HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		return course.findModuleById(mid);
-	}
-	
-	@PutMapping("/api/courses/{cid}/modules/{mid}")
-	public ArrayList<Modules> updateModule(@PathVariable("cid") Integer cid, 
-									@PathVariable("mid") Integer mid, 
-									@RequestBody Modules module,
-									HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		return course.updateModule(mid, module);
-	}
-	
-	@DeleteMapping("/api/courses/{cid}/modules/{mid}")
-	public ArrayList<Modules> deleteCourse(@PathVariable("cid") Integer cid, 
-											@PathVariable("mid") Integer mid,
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		return course.deleteModule(mid);
-	}
+
+    @Autowired
+    ModuleRepository moduleRepository;
+
+    @Autowired
+    CourseRepository courseRepository;
+
+    @GetMapping("/api/course/{cid}/modules")
+    public ArrayList<Modules> findAllModules(@PathVariable("cid") int courseId,
+            								HttpSession session) {
+        Courses currentCourse = courseRepository.findById(courseId).get();
+        return currentCourse.getModules();
+    }
+
+    @PostMapping("/api/course/{cid}/modules")
+    public ArrayList<Modules> createModule(@PathVariable("cid") int courseId,
+            								@RequestBody Modules newModule,
+            								HttpSession session) {
+        Courses currentCourse = courseRepository.findById(courseId).get();
+        ArrayList<Modules> modules = currentCourse.getModules();
+        newModule.setCourse(currentCourse);
+        modules.add(newModule);
+        moduleRepository.save(newModule);
+        return  courseRepository.findById(courseId).get().getModules();
+
+    }
+
+    @GetMapping("/api/module/{mid}")
+    public Modules findModuleById(@PathVariable("mid") int moduleId,
+            					HttpSession session) {
+        return moduleRepository.findById(moduleId).get();
+    }
+
+
+    @PutMapping("/api/module/{mid}")
+    public ArrayList<Modules> updateModule(@PathVariable("mid") int moduleId,
+            								@RequestBody Modules updateModule,
+            								HttpSession session) {
+        Modules module = moduleRepository.findById(moduleId).get();
+        if(module == null) {
+            return null;
+        }
+        module.setModuleName(updateModule.getModuleName());
+        moduleRepository.save(module);
+        Courses currentCourse = courseRepository.findById(module.getCourse().getId()).get();
+        return currentCourse.getModules();
+    }
+
+    @DeleteMapping("/api/module/{mid}")
+    public ArrayList<Modules> deleteModule(@PathVariable("mid") int moduleId, 
+    										HttpSession session) {
+        Modules module = moduleRepository.findById(moduleId).get();
+        int courseId = module.getCourse().getId();
+        moduleRepository.delete(module);
+        Courses course = courseRepository.findById(courseId).get();
+
+        return course.getModules();
+    }
 }
