@@ -1,6 +1,8 @@
 package com.example.webdvsp19serverjava.services;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import com.example.webdvsp19serverjava.repositories.FacultyRepository;
 @RestController
 @CrossOrigin(origins = "*", allowCredentials ="true", allowedHeaders = "*")
 public class CourseService {
-	private ArrayList<Courses> courses = new ArrayList<>();
+	private List<Courses> courses = new ArrayList<>();
 
     @Autowired
     FacultyRepository userRepository;
@@ -29,7 +31,7 @@ public class CourseService {
     CourseRepository courseRepository;
 	
 	@PostMapping("/api/courses")
-    public ArrayList<Courses> createCourse(@RequestBody Courses newCourse, 
+    public List<Courses> createCourse(@RequestBody Courses newCourse, 
     										HttpSession session) {
         Faculty currentUser = (Faculty) session.getAttribute("currentUser");
         currentUser = userRepository.findById(currentUser.getId()).get();
@@ -44,7 +46,7 @@ public class CourseService {
     }
 	
 	@GetMapping("/api/courses")
-    public ArrayList<Courses> findAllCourses(HttpSession session) {
+    public List<Courses> findAllCourses(HttpSession session) {
         Faculty currentUser = (Faculty) session.getAttribute("currentUser");
         currentUser = userRepository.findById(currentUser.getId()).get();
         return currentUser.getCourses();
@@ -83,7 +85,7 @@ public class CourseService {
     }
 	
 	@DeleteMapping("/api/courses/{cid}")
-    public ArrayList<Courses> deleteCourse (@PathVariable("cid") int cid, 
+    public List<Courses> deleteCourse (@PathVariable("cid") int cid, 
     											HttpSession session) {
         Faculty currentUser = (Faculty)session.getAttribute("currentUser");
         currentUser = userRepository.findById(currentUser.getId()).get();

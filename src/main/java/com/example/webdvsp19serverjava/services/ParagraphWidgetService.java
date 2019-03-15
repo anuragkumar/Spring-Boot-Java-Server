@@ -1,6 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +32,7 @@ public class ParagraphWidgetService {
     WidgetRepository widgetRepository;
 
     @PostMapping("/api/topic/{tid}/paragraph/widgets")
-    public ArrayList<Widgets> createWidget(@PathVariable("tid") int topicId,
+    public List<Widgets> createWidget(@PathVariable("tid") int topicId,
             								@RequestBody ParagraphWidget newWidget,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -53,7 +53,7 @@ public class ParagraphWidgetService {
     }
 
     @PutMapping("/api/paragraph/widget/{wid}")
-    public ArrayList<Widgets> updateWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> updateWidget(@PathVariable("wid") int widgetId,
             								@RequestBody ParagraphWidget widgetToBeUpdated,
             								HttpSession session) {
         ParagraphWidget widget = paragraphWidgetRepository.findById(widgetId).get();
@@ -66,7 +66,7 @@ public class ParagraphWidgetService {
     }
 
     @DeleteMapping("/api/paragraph/widget/{wid}")
-    public ArrayList<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
             								HttpSession session) {
         ParagraphWidget widget = paragraphWidgetRepository.findById(widgetId).get();
         int topicId = widget.getId();

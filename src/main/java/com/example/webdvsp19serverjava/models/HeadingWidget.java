@@ -24,4 +24,8 @@ public class HeadingWidget extends Widgets {
 		this.headingSize = size;
 	}
 	
+	public HeadingWidget() {
+		
+	}
+	
 }

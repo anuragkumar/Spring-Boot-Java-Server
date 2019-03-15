@@ -1,6 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,7 +33,7 @@ public class ListWidgetService {
     WidgetRepository widgetRepository;
 
     @GetMapping("/api/topic/{tid}/list/widgets")
-    public ArrayList<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
+    public List<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
             									HttpSession session) {
 
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -41,7 +41,7 @@ public class ListWidgetService {
     }
 
     @PostMapping("/api/topic/{tid}/list/widgets")
-    public ArrayList<Widgets> createWidget(@PathVariable("tid") int topicId,
+    public List<Widgets> createWidget(@PathVariable("tid") int topicId,
             								@RequestBody ListWidget newWidget,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -61,7 +61,7 @@ public class ListWidgetService {
     }
 
     @PutMapping("/api/list/widget/{wid}")
-    public ArrayList<Widgets> updateWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> updateWidget(@PathVariable("wid") int widgetId,
             								@RequestBody ListWidget widgetToBeUpdated,
             								HttpSession session) {
         ListWidget widget = listWidgetRepository.findById(widgetId).get();
@@ -74,7 +74,7 @@ public class ListWidgetService {
     }
 
     @DeleteMapping("/api/list/widget/{wid}")
-    public ArrayList<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
             								HttpSession session) {
         ListWidget widget = listWidgetRepository.findById(widgetId).get();
         int topicId = widget.getId();

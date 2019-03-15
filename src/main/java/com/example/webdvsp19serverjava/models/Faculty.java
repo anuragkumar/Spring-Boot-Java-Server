@@ -1,12 +1,13 @@
 package com.example.webdvsp19serverjava.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Faculty {
@@ -17,8 +18,9 @@ public class Faculty {
     private String password;
     private String firstName;
     private String lastName;
+    
     @OneToMany(mappedBy = "author")
-    private ArrayList<Courses> courses;
+    private List<Courses> courses;
 
     public Faculty() {}
     
@@ -61,19 +63,19 @@ public class Faculty {
 		this.lastName = lastName;
 	}
 	
-	public ArrayList<Courses> getCourses() {
+	public List<Courses> getCourses() {
 		return courses;
 	}
-	public void setCourses(ArrayList<Courses> courses) {
-		this.courses = courses;
+	public void setCourses(List<Courses> courses2) {
+		this.courses = courses2;
 	}
 	
-	public ArrayList<Courses> addCourse(Courses course) {
+	public List<Courses> addCourse(Courses course) {
 		this.courses.add(course);
 		return this.courses;
 	}
 	
-	public ArrayList<Courses> findAllCourses(){
+	public List<Courses> findAllCourses(){
 		return this.courses;
 	}
 	
@@ -86,7 +88,7 @@ public class Faculty {
 		return null;
 	}
 	
-	public ArrayList<Courses> updateCourse(Integer id, Courses course){
+	public List<Courses> updateCourse(Integer id, Courses course){
 		for(Courses cour: this.courses) {
 			if(cour.getId() == id) {
 				cour.setCourseName(course.getCourseName());
@@ -96,7 +98,7 @@ public class Faculty {
 		return null;
 	}
 	
-	public ArrayList<Courses> deleteCourse(Integer id){
+	public List<Courses> deleteCourse(Integer id){
 		for(Courses course: this.courses) {
 			if(course.getId() == id) {
 				this.courses.remove(course);

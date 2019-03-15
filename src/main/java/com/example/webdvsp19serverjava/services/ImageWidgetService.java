@@ -1,6 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +30,7 @@ public class ImageWidgetService {
     ImageWidgetRepository imageWidgetRepository;
 
     @PostMapping("/api/topic/{tid}/image/widgets")
-    public ArrayList<Widgets> createWidget(@PathVariable("tid") int topicId,
+    public List<Widgets> createWidget(@PathVariable("tid") int topicId,
             								@RequestBody ImageWidget newWidget,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -51,7 +51,7 @@ public class ImageWidgetService {
     }
 
     @PutMapping("/api/image/widget/{wid}")
-    public ArrayList<Widgets> updateWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> updateWidget(@PathVariable("wid") int widgetId,
             								@RequestBody ImageWidget widgetToBeUpdated,
             								HttpSession session) {
 
@@ -65,7 +65,7 @@ public class ImageWidgetService {
     }
 
     @DeleteMapping("/api/image/widget/{wid}")
-    public ArrayList<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
             								HttpSession session) {
         ImageWidget widget = imageWidgetRepository.findById(widgetId).get();
         int topicId = widget.getId();

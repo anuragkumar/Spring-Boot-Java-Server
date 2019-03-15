@@ -1,6 +1,7 @@
 package com.example.webdvsp19serverjava.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,8 +19,8 @@ public class Chapters {
 	private Integer id;
 	private String chapterName;
 	
-	@OneToMany(mappedBy = "lesson")
-	private ArrayList<Topics> topics = new ArrayList<Topics>();
+	@OneToMany(mappedBy = "chapter")
+	private List<Topics> topics = new ArrayList<Topics>();
 	
 	@ManyToOne
     @JsonIgnore
@@ -38,6 +39,11 @@ public class Chapters {
 		this.id = id;
 		this.chapterName = chapterName;
 	}
+	
+	public Chapters() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,17 +56,17 @@ public class Chapters {
 	public void setChapterName(String chapterName) {
 		this.chapterName = chapterName;
 	}
-	public ArrayList<Topics> getTopics() {
+	public List<Topics> getTopics() {
 		return topics;
 	}
-	public void setTopics(ArrayList<Topics> topics) {
+	public void setTopics(List<Topics> topics) {
 		this.topics = topics;
 	}
-	public ArrayList<Topics> createTopic(Topics topic) {
+	public List<Topics> createTopic(Topics topic) {
 		this.topics.add(topic);
 		return this.topics;
 	}
-	public ArrayList<Topics> findAllTopics() {
+	public List<Topics> findAllTopics() {
 		return this.topics;
 	}
 	public Topics findTopicById(Integer tid) {
@@ -71,7 +77,7 @@ public class Chapters {
 		}
 		return null;
 	}
-	public ArrayList<Topics> updateTopic(Integer tid, Topics topic) {
+	public List<Topics> updateTopic(Integer tid, Topics topic) {
 		for(Topics top: this.topics) {
 			if(top.getId() == tid) {
 				top.setTopicName(topic.getTopicName());
@@ -80,7 +86,7 @@ public class Chapters {
 		}
 		return null;
 	}
-	public ArrayList<Topics> deleteTopic(Integer tid) {
+	public List<Topics> deleteTopic(Integer tid) {
 		for(Topics topic: this.topics) {
 			if(topic.getId() == tid) {
 				this.topics.remove(topic);

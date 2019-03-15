@@ -1,7 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,18 +30,18 @@ public class ModuleService {
     CourseRepository courseRepository;
 
     @GetMapping("/api/course/{cid}/modules")
-    public ArrayList<Modules> findAllModules(@PathVariable("cid") int courseId,
+    public List<Modules> findAllModules(@PathVariable("cid") int courseId,
             								HttpSession session) {
         Courses currentCourse = courseRepository.findById(courseId).get();
         return currentCourse.getModules();
     }
 
     @PostMapping("/api/course/{cid}/modules")
-    public ArrayList<Modules> createModule(@PathVariable("cid") int courseId,
+    public List<Modules> createModule(@PathVariable("cid") int courseId,
             								@RequestBody Modules newModule,
             								HttpSession session) {
         Courses currentCourse = courseRepository.findById(courseId).get();
-        ArrayList<Modules> modules = currentCourse.getModules();
+        List<Modules> modules = currentCourse.getModules();
         newModule.setCourse(currentCourse);
         modules.add(newModule);
         moduleRepository.save(newModule);
@@ -58,7 +57,7 @@ public class ModuleService {
 
 
     @PutMapping("/api/module/{mid}")
-    public ArrayList<Modules> updateModule(@PathVariable("mid") int moduleId,
+    public List<Modules> updateModule(@PathVariable("mid") int moduleId,
             								@RequestBody Modules updateModule,
             								HttpSession session) {
         Modules module = moduleRepository.findById(moduleId).get();
@@ -72,7 +71,7 @@ public class ModuleService {
     }
 
     @DeleteMapping("/api/module/{mid}")
-    public ArrayList<Modules> deleteModule(@PathVariable("mid") int moduleId, 
+    public List<Modules> deleteModule(@PathVariable("mid") int moduleId, 
     										HttpSession session) {
         Modules module = moduleRepository.findById(moduleId).get();
         int courseId = module.getCourse().getId();

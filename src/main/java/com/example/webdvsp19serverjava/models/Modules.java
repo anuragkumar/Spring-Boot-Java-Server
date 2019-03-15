@@ -1,6 +1,7 @@
 package com.example.webdvsp19serverjava.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Modules {
 	private String moduleName;
 	
 	@OneToMany(mappedBy = "module")
-	private ArrayList<Chapters> chapters = new ArrayList<Chapters>();
+	private List<Chapters> chapters = new ArrayList<Chapters>();
 	
 	@ManyToOne
     @JsonIgnore
@@ -31,6 +32,11 @@ public class Modules {
 		this.id = id;
 		this.moduleName = moduleName;
 	}
+	
+	public Modules() {
+		
+	}
+	
 	public Courses getCourse() {
         return course;
     }
@@ -50,17 +56,17 @@ public class Modules {
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
 	}
-	public ArrayList<Chapters> getChapters() {
+	public List<Chapters> getChapters() {
 		return chapters;
 	}
-	public void setChapters(ArrayList<Chapters> chapters) {
+	public void setChapters(List<Chapters> chapters) {
 		this.chapters = chapters;
 	}
-	public ArrayList<Chapters> createLesson(Chapters chapter) {
+	public List<Chapters> createLesson(Chapters chapter) {
 		this.chapters.add(chapter);
 		return this.chapters;
 	}
-	public ArrayList<Chapters> findAllLessons() {
+	public List<Chapters> findAllLessons() {
 		return this.chapters;
 	}
 	public Chapters findLessonById(Integer lid) {
@@ -71,7 +77,7 @@ public class Modules {
 		}
 		return null;
 	}
-	public ArrayList<Chapters> updateLesson(Integer lid, Chapters chapter) {
+	public List<Chapters> updateLesson(Integer lid, Chapters chapter) {
 		for(Chapters chap: this.chapters) {
 			if(chap.getId() == lid) {
 				chap.setChapterName(chapter.getChapterName());
@@ -80,7 +86,7 @@ public class Modules {
 		}
 		return null;
 	}
-	public ArrayList<Chapters> deleteLesson(Integer lid) {
+	public List<Chapters> deleteLesson(Integer lid) {
 		for(Chapters chapter: this.chapters) {
 			if(chapter.getId() == lid) {
 				this.chapters.remove(chapter);

@@ -5,6 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Topics {
@@ -14,7 +15,7 @@ public class Topics {
 	private String topicName;
 	
 	@OneToMany(mappedBy = "topic")
-	private ArrayList<Widgets> widgets = new ArrayList<Widgets>();
+	private List<Widgets> widgets = new ArrayList<Widgets>();
 	
 	@ManyToOne
     @JsonIgnore
@@ -34,6 +35,11 @@ public class Topics {
 		this.id = id;
 		this.topicName = topicName;
 	}
+	
+	public Topics() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -46,20 +52,20 @@ public class Topics {
 	public void setTopicName(String topicName) {
 		this.topicName = topicName;
 	}
-	public ArrayList<Widgets> getWidgets() {
+	public List<Widgets> getWidgets() {
 		return widgets;
 	}
-	public void setWidgets(ArrayList<Widgets> widgets) {
+	public void setWidgets(List<Widgets> widgets) {
 		this.widgets = widgets;
 	}
-	public ArrayList<Widgets> createWidget(Widgets widget) {
+	public List<Widgets> createWidget(Widgets widget) {
 		this.widgets.add(widget);
 		return this.widgets;
 	}
-	public ArrayList<Widgets> findAllWidgets() {
+	public List<Widgets> findAllWidgets() {
 		return this.widgets;
 	}
-	public ArrayList<Widgets> deleteWidget(Integer wid) {
+	public List<Widgets> deleteWidget(Integer wid) {
 		for(Widgets widget: this.widgets) {
 			if(widget.getId() == wid) {
 				this.widgets.remove(widget);

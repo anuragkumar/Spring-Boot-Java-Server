@@ -1,7 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,14 +27,14 @@ public class WidgetService {
     WidgetRepository widgetRepository;
     
     @GetMapping("/api/topic/{tid}/widgets")
-    public ArrayList<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
+    public List<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
         return topic.getWidgets();
     }
 
     @PostMapping("/api/topic/{tid}/widgets")
-    public ArrayList<Widgets> createWidget(@PathVariable("tid") int topicId,
+    public List<Widgets> createWidget(@PathVariable("tid") int topicId,
             								@RequestBody Widgets newWidget,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -56,14 +55,14 @@ public class WidgetService {
     }
 
     @PutMapping("/api/widget/{wid}")
-    public ArrayList<Widgets> updateWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> updateWidget(@PathVariable("wid") int widgetId,
             								@RequestBody Widgets widgetToBeUpdated,
             								HttpSession session) {
         return null;
     }
 
     @DeleteMapping("/api/widget/{wid}")
-    public ArrayList<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
             								HttpSession session) {
         widgetRepository.deleteById(widgetId);
         return null;
@@ -73,7 +72,7 @@ public class WidgetService {
     public void deleteAllWidgets(@PathVariable("tid") int topicId,
             					HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
-        ArrayList<Widgets> widgets = topic.getWidgets();
+        List<Widgets> widgets = topic.getWidgets();
         for(Widgets widget: widgets) {
             widgetRepository.delete(widget);
         }

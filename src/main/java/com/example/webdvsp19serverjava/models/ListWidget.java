@@ -1,5 +1,8 @@
 package com.example.webdvsp19serverjava.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ListWidget extends Widgets {
 	private String listText;
 	private Integer listType;

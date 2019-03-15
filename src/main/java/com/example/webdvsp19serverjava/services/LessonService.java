@@ -1,7 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +28,7 @@ public class LessonService {
     LessonRepository lessonRepository;
 	
     @PostMapping("/api/module/{mid}/lessons")
-    public ArrayList<Chapters> createLesson(@PathVariable("mid") int moduleId,
+    public List<Chapters> createLesson(@PathVariable("mid") int moduleId,
             								@RequestBody Chapters newLesson,
             								HttpSession session) {
         Modules module = moduleRepository.findById(moduleId).get();
@@ -40,7 +39,7 @@ public class LessonService {
     }
 	
 	@GetMapping("/api/module/{mid}/lessons")
-    public ArrayList<Chapters> findAllLessons(@PathVariable("mid") int moduleId, 
+    public List<Chapters> findAllLessons(@PathVariable("mid") int moduleId, 
     											HttpSession session) {
         Modules module = moduleRepository.findById(moduleId).get();
         return module.findAllLessons();
@@ -59,7 +58,7 @@ public class LessonService {
 
 
     @PutMapping("/api/lesson/{lid}")
-    public ArrayList<Chapters> updateLesson(@PathVariable("lid") int lessonId,
+    public List<Chapters> updateLesson(@PathVariable("lid") int lessonId,
             								@RequestBody Chapters lessonToBeUpdated,
             								HttpSession session) {
         Chapters lesson = lessonRepository.findById(lessonId).get();
@@ -73,7 +72,7 @@ public class LessonService {
     }
 
     @DeleteMapping("/api/lesson/{lid}")
-    public ArrayList<Chapters> deleteLesson(@PathVariable("lid") int lessonId,
+    public List<Chapters> deleteLesson(@PathVariable("lid") int lessonId,
             								HttpSession session) {
         Chapters lesson = lessonRepository.findById(lessonId).get();
         int moduleId = lesson.getModule().getId();

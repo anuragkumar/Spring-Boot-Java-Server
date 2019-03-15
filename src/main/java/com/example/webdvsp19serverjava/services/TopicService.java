@@ -1,7 +1,6 @@
 package com.example.webdvsp19serverjava.services;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +28,7 @@ public class TopicService {
     TopicRepository topicRepositroy;
 
     @GetMapping("/api/lesson/{lid}/topics")
-    public ArrayList<Topics> findAllTopics(@PathVariable("lid") int lessonId,
+    public List<Topics> findAllTopics(@PathVariable("lid") int lessonId,
             								HttpSession session) {
         Chapters lesson = lessonRepository.findById(lessonId).get();
         return lesson.getTopics();
@@ -37,7 +36,7 @@ public class TopicService {
 
 
     @PostMapping("/api/lesson/{lid}/topics")
-    public ArrayList<Topics> createTopic(@PathVariable("lid") int lessonId,
+    public List<Topics> createTopic(@PathVariable("lid") int lessonId,
             							@RequestBody Topics newTopic,
             							HttpSession session) {
         Chapters lesson = lessonRepository.findById(lessonId).get();
@@ -59,7 +58,7 @@ public class TopicService {
     }
 
     @PutMapping("/api/topic/{tid}")
-    public ArrayList<Topics> updateTopic(@PathVariable("tid") int topicId,
+    public List<Topics> updateTopic(@PathVariable("tid") int topicId,
             							@RequestBody Topics topicToBeUpdated,
             							HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -74,7 +73,7 @@ public class TopicService {
 
 
     @DeleteMapping("/api/topic/{tid}")
-    public ArrayList<Topics> deleteTopic(@PathVariable("tid") int topicId,
+    public List<Topics> deleteTopic(@PathVariable("tid") int topicId,
             							HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
         int lessonId = topic.getChapter().getId();

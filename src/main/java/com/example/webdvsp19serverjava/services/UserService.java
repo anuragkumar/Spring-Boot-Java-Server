@@ -24,6 +24,7 @@ import com.example.webdvsp19serverjava.models.Widgets;
 import com.example.webdvsp19serverjava.repositories.FacultyRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -84,27 +85,27 @@ public class UserService {
 	ListWidget list1 = new ListWidget(1, "List Text", "List text is here", 1);
 	LinkWidget link1 = new LinkWidget(1, "Link URL", "https://picsum.photos/300/200", "image");
 	
-	ArrayList<Faculty> users = new ArrayList<Faculty>();
-	ArrayList<Courses> courses1 = new ArrayList<Courses>();
-	ArrayList<Courses> courses2 = new ArrayList<Courses>();
-	ArrayList<Modules> cs5610Modules = new ArrayList<Modules>();
-	ArrayList<Modules> cs5200Modules = new ArrayList<Modules>();
-	ArrayList<Modules> cs5600Modules = new ArrayList<Modules>();
-	ArrayList<Chapters> jqueryChapters = new ArrayList<Chapters>();
-	ArrayList<Chapters> reactChapters = new ArrayList<Chapters>();
-	ArrayList<Chapters> sqlChapters = new ArrayList<Chapters>();
-	ArrayList<Chapters> jpaChapters = new ArrayList<Chapters>();
-	ArrayList<Chapters> agileChapters = new ArrayList<Chapters>();
-	ArrayList<Chapters> testingChapters = new ArrayList<Chapters>();
-	ArrayList<Topics> jqueryLessTopics1 = new ArrayList<Topics>();
-	ArrayList<Topics> jqueryLessTopics2 = new ArrayList<Topics>();
-	ArrayList<Topics> reactLessTopics1 = new ArrayList<Topics>();
-	ArrayList<Topics> reactLessTopics2 = new ArrayList<Topics>();
-	ArrayList<Topics> sqlLessTopics = new ArrayList<Topics>();
-	ArrayList<Widgets> jquerytopic1 = new ArrayList<Widgets>();
-	ArrayList<Widgets> jquerytopic2 = new ArrayList<Widgets>();
-	ArrayList<Widgets> sqltopic1 = new ArrayList<Widgets>();
-	ArrayList<Widgets> sqltopic2 = new ArrayList<Widgets>();
+	List<Faculty> users = new ArrayList<Faculty>();
+	List<Courses> courses1 = new ArrayList<Courses>();
+	List<Courses> courses2 = new ArrayList<Courses>();
+	List<Modules> cs5610Modules = new ArrayList<Modules>();
+	List<Modules> cs5200Modules = new ArrayList<Modules>();
+	List<Modules> cs5600Modules = new ArrayList<Modules>();
+	List<Chapters> jqueryChapters = new ArrayList<Chapters>();
+	List<Chapters> reactChapters = new ArrayList<Chapters>();
+	List<Chapters> sqlChapters = new ArrayList<Chapters>();
+	List<Chapters> jpaChapters = new ArrayList<Chapters>();
+	List<Chapters> agileChapters = new ArrayList<Chapters>();
+	List<Chapters> testingChapters = new ArrayList<Chapters>();
+	List<Topics> jqueryLessTopics1 = new ArrayList<Topics>();
+	List<Topics> jqueryLessTopics2 = new ArrayList<Topics>();
+	List<Topics> reactLessTopics1 = new ArrayList<Topics>();
+	List<Topics> reactLessTopics2 = new ArrayList<Topics>();
+	List<Topics> sqlLessTopics = new ArrayList<Topics>();
+	List<Widgets> jquerytopic1 = new ArrayList<Widgets>();
+	List<Widgets> jquerytopic2 = new ArrayList<Widgets>();
+	List<Widgets> sqltopic1 = new ArrayList<Widgets>();
+	List<Widgets> sqltopic2 = new ArrayList<Widgets>();
 	{
 		sqltopic2.add(image1);
 		sqltopic2.add(list1);
@@ -170,13 +171,13 @@ public class UserService {
 	}
 	
 	@GetMapping("/api/users")
-	public ArrayList<Faculty> findAllUser() {
-		return (ArrayList<Faculty>) userRepository.findAll();
+	public List<Faculty> findAllUser() {
+		return (List<Faculty>) userRepository.findAll();
 	}
 	
 	@GetMapping("/api/users/{userID}")
 	public Faculty findUserById(@PathVariable("userID") Integer id) {
-		users = (ArrayList<Faculty>) userRepository.findAll();
+		users = (List<Faculty>) userRepository.findAll();
 		for(Faculty user: users) {
 			if(user.getId().equals(id)) {
 				return user;
@@ -204,7 +205,7 @@ public class UserService {
 	
 	@PostMapping("/api/login")
 	public Faculty loginUser(@RequestBody Faculty loginUser, HttpSession session){
-		users = (ArrayList<Faculty>) userRepository.findAll();
+		users = (List<Faculty>) userRepository.findAll();
 		for(Faculty user: users) {
 			System.out.println(user.findAllCourses().size());
 			if(user.getUsername().equals(loginUser.getUsername()) && 

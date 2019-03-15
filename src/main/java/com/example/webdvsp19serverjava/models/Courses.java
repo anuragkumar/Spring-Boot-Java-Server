@@ -1,6 +1,7 @@
 package com.example.webdvsp19serverjava.models;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class Courses {
 	private int id;
 	private String courseName;
 	@OneToMany(mappedBy = "course")
-	private ArrayList<Modules> modules = new ArrayList<Modules>();
+	private List<Modules> modules = new ArrayList<Modules>();
 	
 	@ManyToOne
     @JsonIgnore
@@ -38,6 +39,11 @@ public class Courses {
 		this.id = id;
 		this.courseName = courseName;
 	}
+	
+	public Courses() {
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -50,21 +56,21 @@ public class Courses {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public ArrayList<Modules> getModules() {
+	public List<Modules> getModules() {
 		return modules;
 	}
-	public void setModules(ArrayList<Modules> modules) {
+	public void setModules(List<Modules> modules) {
 		this.modules = modules;
 	}
 	
-	public ArrayList<Modules> createModule(Modules module){
+	public List<Modules> createModule(Modules module){
 		Random ran = new Random();
 		module.setId(ran.nextInt(100));
 		this.modules.add(module);
 		return this.modules;
 	}
 	
-	public ArrayList<Modules> findAllModules(){
+	public List<Modules> findAllModules(){
 		return this.modules;
 	}
 	
@@ -77,7 +83,7 @@ public class Courses {
 		return null;
 	}
 	
-	public ArrayList<Modules> updateModule(Integer id, Modules module){
+	public List<Modules> updateModule(Integer id, Modules module){
 		for(Modules mod: this.modules) {
 			if(mod.getId() == id) {
 				mod.setModuleName(module.getModuleName());
@@ -87,7 +93,7 @@ public class Courses {
 		return null;
 	}
 	
-	public ArrayList<Modules> deleteModule(Integer id){
+	public List<Modules> deleteModule(Integer id){
 		for(Modules mod: this.modules) {
 			if(mod.getId() == id) {
 				this.modules.remove(mod);

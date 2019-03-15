@@ -16,5 +16,9 @@ public class ParagraphWidget extends Widgets {
 		super(id, widgetName);
 		this.paragraphText = text;
 	}
+	
+	public ParagraphWidget() {
+		
+	}
 
 }

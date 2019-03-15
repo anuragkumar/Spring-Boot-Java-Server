@@ -11,7 +11,7 @@ import com.example.webdvsp19serverjava.repositories.TopicRepository;
 
 import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
@@ -23,14 +23,14 @@ public class HeadingWidgetService {
     HeadingWidgetRepository headingWidgetRepository;
 
     @GetMapping("/api/topic/{tid}/heading/widgets")
-    public ArrayList<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
+    public List<Widgets> findAllWidgets(@PathVariable("tid") int topicId,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
         return topic.getWidgets();
     }
 
     @PostMapping("/api/topic/{tid}/heading/widgets")
-    public ArrayList<Widgets> createWidget(@PathVariable("tid") int topicId,
+    public List<Widgets> createWidget(@PathVariable("tid") int topicId,
             								@RequestBody HeadingWidget newWidget,
             								HttpSession session) {
         Topics topic = topicRepositroy.findById(topicId).get();
@@ -51,7 +51,7 @@ public class HeadingWidgetService {
     }
 
     @PutMapping("/api/heading/widget/{wid}")
-    public ArrayList<Widgets> updateWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> updateWidget(@PathVariable("wid") int widgetId,
             								@RequestBody HeadingWidget widgetToBeUpdated,
             								HttpSession session) {
         HeadingWidget widget = headingWidgetRepository.findById(widgetId).get();
@@ -64,7 +64,7 @@ public class HeadingWidgetService {
     }
 
     @DeleteMapping("/api/heading/widget/{wid}")
-    public ArrayList<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
+    public List<Widgets> deleteWidget(@PathVariable("wid") int widgetId,
             								HttpSession session) {
         HeadingWidget widget = headingWidgetRepository.findById(widgetId).get();
         int topicId = widget.getId();
