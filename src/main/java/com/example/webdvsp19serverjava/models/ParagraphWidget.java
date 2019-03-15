@@ -1,5 +1,8 @@
 package com.example.webdvsp19serverjava.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ParagraphWidget extends Widgets {
 	private String paragraphText;
 	
@@ -9,8 +12,9 @@ public class ParagraphWidget extends Widgets {
 	public void setParagraphText(String paragraphText) {
 		this.paragraphText = paragraphText;
 	}
-	public ParagraphWidget(Integer id, String widgetName) {
+	public ParagraphWidget(Integer id, String widgetName, String text) {
 		super(id, widgetName);
+		this.paragraphText = text;
 	}
 
 }
