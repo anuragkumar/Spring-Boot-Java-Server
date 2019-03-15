@@ -1,4 +1,5 @@
 package com.example.webdvsp19serverjava.services;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -20,6 +21,7 @@ import com.example.webdvsp19serverjava.models.Sections;
 import com.example.webdvsp19serverjava.models.Students;
 import com.example.webdvsp19serverjava.models.Topics;
 import com.example.webdvsp19serverjava.models.Widgets;
+import com.example.webdvsp19serverjava.repositories.FacultyRepository;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,9 +29,12 @@ import java.util.Random;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@CrossOrigin(origins = "*", allowCredentials ="true")
+@CrossOrigin(origins = "*", allowCredentials ="true", allowedHeaders = "*")
 public class UserService {
 	Random ran = new Random();
+	
+	@Autowired
+    FacultyRepository userRepository;
 	
 	Faculty alex = new Faculty(100, "bird", "bird", "Alice", "Kathie");
 	Faculty alice = new Faculty(101, "sign", "sign", "Alex", "Mercer");
@@ -73,11 +78,11 @@ public class UserService {
 	Topics topic7 = new Topics(1, "Topic 2 Stateful");
 	Topics topic8 = new Topics(2, "Topic 2 Stateless");
 	
-	HeadingWidget heading1 = new HeadingWidget(1, "Heading Text");
-	ParagraphWidget paragraph1 = new ParagraphWidget(1, "Paragraph Text");
-	ImageWidget image1 = new ImageWidget(1, "Image URL");
-	ListWidget list1 = new ListWidget(1, "List Text");
-	LinkWidget link1 = new LinkWidget(1, "Link URL");
+	HeadingWidget heading1 = new HeadingWidget(1, "Heading Text", "Heading Text", 1);
+	ParagraphWidget paragraph1 = new ParagraphWidget(1, "Paragraph Text", "Paragraph Text");
+	ImageWidget image1 = new ImageWidget(1, "Image URL", "https://picsum.photos/300/200");
+	ListWidget list1 = new ListWidget(1, "List Text", "List text is here", 1);
+	LinkWidget link1 = new LinkWidget(1, "Link URL", "https://picsum.photos/300/200", "image");
 	
 	ArrayList<Faculty> users = new ArrayList<Faculty>();
 	ArrayList<Courses> courses1 = new ArrayList<Courses>();
@@ -166,11 +171,12 @@ public class UserService {
 	
 	@GetMapping("/api/users")
 	public ArrayList<Faculty> findAllUser() {
-		return users;
+		return (ArrayList<Faculty>) userRepository.findAll();
 	}
 	
 	@GetMapping("/api/users/{userID}")
 	public Faculty findUserById(@PathVariable("userID") Integer id) {
+		users = (ArrayList<Faculty>) userRepository.findAll();
 		for(Faculty user: users) {
 			if(user.getId().equals(id)) {
 				return user;
@@ -185,11 +191,11 @@ public class UserService {
 		for(Faculty user: users) {
 			if(user.getUsername().equals(newUser.getUsername())) {
 				flag = 1;
+				return newUser;
 			}
 		}
 		if(flag == 0) {
-			newUser.setId(ran.nextInt(100));
-			users.add(newUser);
+			userRepository.save(newUser);
 			session.setAttribute("currentUser", newUser);
 			return newUser;
 		}
