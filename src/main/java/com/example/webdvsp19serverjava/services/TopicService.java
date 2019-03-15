@@ -2,8 +2,10 @@ package com.example.webdvsp19serverjava.services;
 
 import java.util.ArrayList;
 
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,76 +16,70 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webdvsp19serverjava.models.Chapters;
-import com.example.webdvsp19serverjava.models.Courses;
-import com.example.webdvsp19serverjava.models.Faculty;
-import com.example.webdvsp19serverjava.models.Modules;
 import com.example.webdvsp19serverjava.models.Topics;
+import com.example.webdvsp19serverjava.repositories.LessonRepository;
+import com.example.webdvsp19serverjava.repositories.TopicRepository;
 
 @RestController
-@CrossOrigin(origins = "*", allowCredentials ="true")
+@CrossOrigin(origins = "*", allowCredentials ="true", allowedHeaders = "*")
 public class TopicService {
-	@PostMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics")
-	public ArrayList<Topics> createTopic(@PathVariable("cid") Integer cid,
-											@PathVariable("mid") Integer mid,
-											@PathVariable("lid") Integer lid,
-											@RequestBody Topics topic,
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		Modules module = course.findModuleById(mid);
-		Chapters chapter = module.findLessonById(lid);
-		return chapter.createTopic(topic);
-	}
-	
-	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics")
-	public ArrayList<Topics> findAllTopics(@PathVariable("cid") Integer cid, 
-											@PathVariable("mid") Integer mid,
-											@PathVariable("lid") Integer lid,
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		Modules module = course.findModuleById(mid);
-		Chapters chapter = module.findLessonById(lid);
-		return chapter.findAllTopics();
-	}
-	
-	@GetMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
-	public Topics findLessonById(@PathVariable("cid") Integer cid, 
-									@PathVariable("mid") Integer mid, 
-									@PathVariable("lid") Integer lid,
-									@PathVariable("tid") Integer tid,
-									HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		Modules module = course.findModuleById(mid);
-		Chapters chapter = module.findLessonById(lid);
-		return chapter.findTopicById(tid);
-	}
-	
-	@PutMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
-	public ArrayList<Topics> updateTopic(@PathVariable("cid") Integer cid, 
-									@PathVariable("mid") Integer mid, 
-									@PathVariable("lid") Integer lid, 
-									@PathVariable("tid") Integer tid, 
-									@RequestBody Topics topic,
-									HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		Modules module = course.findModuleById(mid);
-		Chapters chapter = module.findLessonById(lid);
-		return chapter.updateTopic(tid, topic);
-	}
-	
-	@DeleteMapping("/api/courses/{cid}/modules/{mid}/lessons/{lid}/topics/{tid}")
-	public ArrayList<Topics> deleteTopic(@PathVariable("cid") Integer cid, 
-											@PathVariable("mid") Integer mid,
-											@PathVariable("lid") Integer lid,
-											@PathVariable("tid") Integer tid,
-											HttpSession session){
-		Faculty user = (Faculty)session.getAttribute("currentUser");
-		Courses course = user.findCourseById(cid);
-		Modules module = course.findModuleById(mid);
-		Chapters chapter = module.findLessonById(lid);
-		return chapter.deleteTopic(tid);
-	}
+	@Autowired
+    LessonRepository lessonRepository;
+    @Autowired
+    TopicRepository topicRepositroy;
+
+    @GetMapping("/api/lesson/{lid}/topics")
+    public ArrayList<Topics> findAllTopics(@PathVariable("lid") int lessonId,
+            								HttpSession session) {
+        Chapters lesson = lessonRepository.findById(lessonId).get();
+        return lesson.getTopics();
+    }
+
+
+    @PostMapping("/api/lesson/{lid}/topics")
+    public ArrayList<Topics> createTopic(@PathVariable("lid") int lessonId,
+            							@RequestBody Topics newTopic,
+            							HttpSession session) {
+        Chapters lesson = lessonRepository.findById(lessonId).get();
+        newTopic.setChapter(lesson);
+        topicRepositroy.save(newTopic);
+        return lessonRepository.findById(lessonId).get().getTopics();
+    }
+
+
+    @GetMapping("/api/topic/{tid}")
+    public Topics findTopicById(@PathVariable("tid") int topicId,
+            					HttpSession session) {
+        Topics topic = topicRepositroy.findById(topicId).get();
+        if(topic != null) {
+            return topic;
+        }
+
+        return new Topics(0, "");
+    }
+
+    @PutMapping("/api/topic/{tid}")
+    public ArrayList<Topics> updateTopic(@PathVariable("tid") int topicId,
+            							@RequestBody Topics topicToBeUpdated,
+            							HttpSession session) {
+        Topics topic = topicRepositroy.findById(topicId).get();
+        if(topic == null) {
+            return null;
+        }
+        topic.setTopicName(topicToBeUpdated.getTopicName());
+        topicRepositroy.save(topic);
+        Chapters lesson = lessonRepository.findById(topic.getChapter().getId()).get();
+        return lesson.getTopics();
+    }
+
+
+    @DeleteMapping("/api/topic/{tid}")
+    public ArrayList<Topics> deleteTopic(@PathVariable("tid") int topicId,
+            							HttpSession session) {
+        Topics topic = topicRepositroy.findById(topicId).get();
+        int lessonId = topic.getChapter().getId();
+        topicRepositroy.delete(topic);
+        Chapters lesson = lessonRepository.findById(lessonId).get();
+        return lesson.getTopics();
+    }
 }
