@@ -1,5 +1,8 @@
 package com.example.webdvsp19serverjava.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ImageWidget extends Widgets {
 	private String imageUrl;
 	
@@ -16,9 +19,9 @@ public class ImageWidget extends Widgets {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ImageWidget(Integer id, String widgetName) {
+	public ImageWidget(Integer id, String widgetName, String url) {
 		super(id, widgetName);
-		// TODO Auto-generated constructor stub
+		this.imageUrl = url;
 	}
 	
 }
