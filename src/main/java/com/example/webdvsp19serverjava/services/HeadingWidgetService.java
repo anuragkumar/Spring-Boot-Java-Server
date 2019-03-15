@@ -12,7 +12,6 @@ import com.example.webdvsp19serverjava.repositories.TopicRepository;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
