@@ -1,8 +1,26 @@
 package com.example.webdvsp19serverjava.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
+@Entity
 public class Widgets {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String widgetName;
+	
+	@ManyToOne
+    @JsonIgnore
+    private Topics topic;
+	
+	public Topics getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topics topic) {
+        this.topic = topic;
+    }
+    
 	public Widgets() {
 		
 	}
