@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webdvsp19serverjava.models.LinkWidget;
-import com.example.webdvsp19serverjava.models.ListWidget;
 import com.example.webdvsp19serverjava.models.Topics;
 import com.example.webdvsp19serverjava.models.Widgets;
 import com.example.webdvsp19serverjava.repositories.LinkWidgetRepository;
-import com.example.webdvsp19serverjava.repositories.ListWidgetRepository;
 import com.example.webdvsp19serverjava.repositories.TopicRepository;
 import com.example.webdvsp19serverjava.repositories.WidgetRepository;
 
