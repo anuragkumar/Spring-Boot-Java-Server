@@ -1,5 +1,8 @@
 package com.example.webdvsp19serverjava.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class LinkWidget extends Widgets {
 	private String linkUrl;
 	private String linkText;
@@ -24,9 +27,10 @@ public class LinkWidget extends Widgets {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LinkWidget(Integer id, String widgetName) {
+	public LinkWidget(Integer id, String widgetName, String url, String text) {
 		super(id, widgetName);
-		// TODO Auto-generated constructor stub
+		this.linkUrl = url;
+		this.linkText = text;
 	}
 
 }
